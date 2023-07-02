@@ -185,23 +185,23 @@ func makeCircleObject(center geometry.Point, meters float64, steps int) Object {
 	points := make([]geometry.Point, 0, steps+1)
 
 	// calc the four corners
-	maxY, _ := geo.DestinationPoint(center.Y, center.X, meters, 0)
-	_, maxX := geo.DestinationPoint(center.Y, center.X, meters, 90)
-	minY, _ := geo.DestinationPoint(center.Y, center.X, meters, 180)
-	_, minX := geo.DestinationPoint(center.Y, center.X, meters, 270)
+	//maxY, _ := geo.DestinationPoint(center.Y, center.X, meters, 0)
+	//_, maxX := geo.DestinationPoint(center.Y, center.X, meters, 90)
+	//minY, _ := geo.DestinationPoint(center.Y, center.X, meters, 180)
+	//_, minX := geo.DestinationPoint(center.Y, center.X, meters, 270)
 
 	// TODO: detect of pole and antimeridian crossing and generate a
 	// valid multigeometry
 
 	// use the half width of the lat and lon
-	lons := (maxX - minX) / 2
-	lats := (maxY - minY) / 2
+	//lons := (maxX - minX) / 2
+	//lats := (maxY - minY) / 2
 
 	// generate the
 	for th := 0.0; th <= 360.0; th += 360.0 / float64(steps) {
 		radians := (math.Pi / 180) * th
-		x := center.X + lons*math.Cos(radians)
-		y := center.Y + lats*math.Sin(radians)
+		x := center.X + meters*math.Cos(radians)
+		y := center.Y + meters*math.Sin(radians)
 		points = append(points, geometry.Point{X: x, Y: y})
 	}
 	// add last connecting point, make a total of steps+1
